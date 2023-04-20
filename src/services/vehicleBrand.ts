@@ -1,4 +1,4 @@
-import Model from "../models/user";
+import Model from "../models/vehicleBrand";
 
 function findAll() {
     return Model.findAll();

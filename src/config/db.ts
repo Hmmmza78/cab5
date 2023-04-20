@@ -1,4 +1,4 @@
-import { Sequelize } from "sequelize";
+import { Sequelize, Dialect } from "sequelize";
 
 
 const dbConfig = {
@@ -7,7 +7,7 @@ const dbConfig = {
     USER: 'root',
     PASSWORD: '',
     DB: 'cab5',
-    dialect: 'mysql',
+    dialect: 'mysql' as Dialect,
 
     pool: {
         max: 5,
@@ -24,7 +24,7 @@ export const sequelize = new Sequelize(
     dbConfig.PASSWORD,
     {
         host: dbConfig.HOST,
-        dialect: 'mysql',
+        dialect: dbConfig.dialect,
         // operatorsAliases:false,
         pool: {
             max: dbConfig.pool.max,

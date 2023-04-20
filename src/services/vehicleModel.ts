@@ -1,4 +1,4 @@
-import Model from "../models/user";
+import Model from "../models/vehicleModel";
 
 function findAll() {
     return Model.findAll();
@@ -19,5 +19,6 @@ function findByQuery(query) {
 function findById(id) {
     return Model.findOne({ where: { id } });
 }
+
 
 export default { findAll, findOne, create, findByQuery, findById };

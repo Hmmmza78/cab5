@@ -1,4 +1,4 @@
-import Model from "../models/user";
+import Model from "../models/city";
 
 function findAll() {
     return Model.findAll();
@@ -20,4 +20,9 @@ function findById(id) {
     return Model.findOne({ where: { id } });
 }
 
-export default { findAll, findOne, create, findByQuery, findById };
+// function to delete a record with id
+function deleteById(id) {
+    return Model.destroy({ where: { id } });
+}
+
+export default { findAll, findOne, create, findByQuery, findById, deleteById };

@@ -53,7 +53,8 @@ const userSchema = sequelize.define("users",
       allowNull: true,
       defaultValue: "pending",
     }
-  }
+  },
+  { timestamps: true, }
 )
 
 export default userSchema

@@ -11,7 +11,3 @@ export async function findAll(req: Request, res: Response | any, next: NextFunct
         return next(new NotFoundError("No Record Found", error))
     }
 }
-
-
-
-

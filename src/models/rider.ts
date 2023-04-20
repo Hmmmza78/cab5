@@ -1,7 +1,7 @@
 import { sequelize } from '../config/db';
 import { DataTypes } from "sequelize"
 
-export type UserDocument = Document & {
+export type RiderDocument = Document & {
     firstName: string;
     lastName: string;
     phone: string;
@@ -11,10 +11,11 @@ export type UserDocument = Document & {
     currLat: string;
     currLon: string;
     image: string;
+    dob: string;
 }
 
 
-const userSchema = sequelize.define("users",
+const riderSchema = sequelize.define("users",
     {
         firstName: {
             type: DataTypes.STRING,
@@ -58,7 +59,8 @@ const userSchema = sequelize.define("users",
             allowNull: true,
             defaultValue: "pending",
         }
-    }
+    },
+    { timestamps: true, }
 )
 
-export default userSchema
+export default riderSchema
