@@ -11,7 +11,7 @@ router.post("/register", validateInputs(["firstName", "lastName", "phone", "emai
 
 router.post("/documents", validateInputs(["rider", "cnicFront", "cnicBack", "licenseImage", "licenseNumber", "plateNumber", "plateImage", "status"]), documents);
 
-router.post("/documents", validateInputs(["rider", "licenseImage", "licenseNumber",]), documents);
+router.post("/license", validateInputs(["rider", "licenseImage", "licenseNumber",]), documents);
 
 router.post("/cnic", validateInputs(["rider", "cnicFront", "cnicBack"]), documents);
 
