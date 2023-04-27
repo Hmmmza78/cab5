@@ -7,6 +7,8 @@ export type RiderDocumentDocument = Document & {
     cnicBack: string;
     licenseImage: string;
     licenseNumber: string;
+    plateNumber: string;
+    plateImage: string;
     status: string;
 }
 
@@ -30,6 +32,14 @@ const riderDocumentSchema = sequelize.define("riderDocument",
             allowNull: true,
         },
         licenseNumber: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        plateNumber: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        plateImage: {
             type: DataTypes.STRING,
             allowNull: true,
         },

@@ -3,6 +3,7 @@ import RiderService from "../../../services/rider"
 import { BadRequestError, NotFoundError, ValidationError } from '../../../helpers/apiError';
 import { RiderDocument } from '../../../models/rider';
 import RiderDocumentService from "../../../services/riderDocument"
+import VehicleInfoService from "../../../services/vehicleInfo"
 
 export const create = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -42,6 +43,19 @@ export const documents = async (req: Request, res: Response, next: NextFunction)
             return res.json({ status: "success", data: await RiderDocumentService.findOne({ rider }) })
         }
         const data = await RiderDocumentService.create(req["validData"]);
+    } catch (error) {
+        return next(new ValidationError("Invalid fields", error))
+    }
+}
+
+export const vehicleInfo = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { rider } = req.body;
+        const old = await VehicleInfoService.findOne({ rider });
+        if (old != null) {
+            return res.json({ status: "success", data: await VehicleInfoService.findOne({ rider }) })
+        }
+        const data = await VehicleInfoService.create(req["validData"]);
     } catch (error) {
         return next(new ValidationError("Invalid fields", error))
     }
