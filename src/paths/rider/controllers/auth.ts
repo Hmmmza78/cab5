@@ -25,6 +25,8 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
         if (data == null) {
             return next(new NotFoundError("No records found"));
         }
+        const { phone: phoneNum, ...others } = req["validData"]
+        await RiderService.updateByQuery({ phone }, others)
         return res.json({ status: "success", data })
     } catch (error) {
         return next(new ValidationError("Invalid phone number or password", error));

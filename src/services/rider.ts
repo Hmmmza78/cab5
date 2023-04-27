@@ -20,4 +20,8 @@ function findById(id) {
     return Model.findOne({ where: { id } });
 }
 
-export default { findAll, findOne, create, findByQuery, findById };
+function updateByQuery(query, update) {
+    return Model.update(update, { where: query });
+
+}
+export default { findAll, findOne, create, findByQuery, findById, updateByQuery }

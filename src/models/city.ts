@@ -16,6 +16,7 @@ const citySchema = sequelize.define("cities",
         status: {
             type: DataTypes.STRING,
             allowNull: true,
+            defaultValue: "enabled",
         },
     },
     { timestamps: true, }
