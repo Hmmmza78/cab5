@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import RiderService from "../../../services/rider"
 import { BadRequestError, NotFoundError, ValidationError } from '../../../helpers/apiError';
 import { RiderDocument } from '../../../models/rider';
-
+import RiderDocumentService from "../../../services/riderDocument"
 
 export const create = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -28,5 +28,19 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
         return res.json({ status: "success", data })
     } catch (error) {
         return next(new ValidationError("Invalid phone number or password", error));
+    }
+}
+
+export const documents = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { rider } = req.body;
+        const old = await RiderDocumentService.findOne({ rider });
+        if (old != null) {
+            await RiderDocumentService.updateByFilter({ rider }, { ...req["validData"] });
+            return res.json({ status: "success", data: await RiderDocumentService.findOne({ rider }) })
+        }
+        const data = await RiderDocumentService.create(req["validData"]);
+    } catch (error) {
+        return next(new ValidationError("Invalid fields", error))
     }
 }

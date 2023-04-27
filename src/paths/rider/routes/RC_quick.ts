@@ -1,5 +1,5 @@
 import express, { Request, Response, NextFunction } from "express";
-import {  findAll, findById, findByQuery } from "../controllers/rider";
+import {  findAll, findById, findByQuery } from "../controllers/RC_quick";
 import { validateInputs } from "../../../middlewares/validate";
 const router = express.Router();
 

@@ -1,13 +1,8 @@
-/*fron-back{
- cnic,
-}
-drivingLicense (image and number)
-
-*/
 import { sequelize } from '../config/db';
 import { DataTypes } from "sequelize"
 
 export type RiderDocumentDocument = Document & {
+    rider: string;
     cnicFront: string;
     cnicBack: string;
     licenseImage: string;
@@ -18,6 +13,10 @@ export type RiderDocumentDocument = Document & {
 
 const riderDocumentSchema = sequelize.define("riderDocument",
     {
+        rider: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
         cnicFront: {
             type: DataTypes.STRING,
             allowNull: true,

@@ -4,6 +4,7 @@ import RC_quick from "./RC_quick"
 import vehicleBrand from "./vehicleBrand"
 import vehicleColor from "./vehicleColor"
 import vehicleModel from "./vehicleModel"
+import support from "./support"
 
 export default function Router(app, route = "/admin") {
     app.use(route + "/city", city)
@@ -11,4 +12,5 @@ export default function Router(app, route = "/admin") {
     app.use(route + "/vehicleBrand", vehicleBrand)
     app.use(route + "/vehicleColor", vehicleColor)
     app.use(route + "/vehicleModel", vehicleModel)
+    app.use(route + "/support", support)
 }

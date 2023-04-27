@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
-import {  findAll, findById, findByQuery } from "../controllers/rider";
-import { validateInputs } from "../../../middlewares/validate";
+import { validateInputs } from "../../../middlewares/validate"
+import { findAll, findById, findByQuery } from "../controllers/vehicleModel";
 const router = express.Router();
 
 
