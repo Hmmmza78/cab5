@@ -48,7 +48,7 @@ db.Sequelize = Sequelize
 db.sequelize = sequelize
 
 
-db.sequelize.sync({ force: false }).then(() => {
+db.sequelize.sync({ force: true }).then(() => {
     console.log('Yes Re-Sync Complete')
 })
 

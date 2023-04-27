@@ -8,8 +8,8 @@ const server = http.createServer(app);
 import socket from "./sockets"
 socket(server);
 
-// process.env.PORT ||
-const PORT = 3009;
+
+const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
     console.log(`server listening on port ${PORT}`);
 })
