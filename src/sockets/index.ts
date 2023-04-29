@@ -1,6 +1,7 @@
 import { Socket } from "socket.io";
 import { Server, } from "socket.io";
 import R_quickService from "../services/R_quick";
+import UserService from "../services/user";
 
 import R_quick from "./R_quick"
 
@@ -36,7 +37,13 @@ export default async function socket(io: Server) {
     });
     riderNSP.on("connection", async (socket: Socket) => {
         console.log("rider connected");
-        riderNSP.emit("newRideQuick", await R_quickService.findAll());
+        const rides = await R_quickService.findAll();
+        const final = [];
+        for (const one of rides) {
+            const userData = await UserService.findById(one.toJSON().user);
+            final.push({ doc: one });
+        }
+        riderNSP.emit("newRideQuick", rides);
         socket.on("join", (data) => {
             console.log(data);
         });
