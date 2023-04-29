@@ -16,13 +16,13 @@ export default async function socket(io: Server) {
     userNSP.on("connection", async (socket: Socket) => {
         console.log("user connected");
 
-        userNSP.on("newRideQuick", async (data, cb) => {
+        socket.on("newRideQuick", async (data, cb) => {
             try {
                 console.log(data);
                 let result = await R_quickService.create(data);
                 console.log(result);
                 cb({ status: "success", data: result });
-                userNSP.emit("newRideQuic", result);
+                riderNSP.emit("newRideQuic", result);
             } catch (error) {
                 cb({ status: "error", message: error.message });
             }
