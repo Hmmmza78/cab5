@@ -14,6 +14,8 @@ export const create = async (req: Request, res: Response, next: NextFunction) =>
         const data = await UserService.create(req["validData"]);
         return res.json({ status: "success", data });
     } catch (error) {
+        console.log(error.message);
+
         return next(new ValidationError("Invalid fields: " + JSON.stringify(error)));
     }
 }
