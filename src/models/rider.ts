@@ -48,6 +48,7 @@ const riderSchema = sequelize.define("users",
         image: {
             type: DataTypes.STRING,
             allowNull: true,
+            defaultValue: "https://res.cloudinary.com/dpxo0k5hb/image/upload/v1682782197/uploads/1682782196342-Driver%20side-58.png.png"
         },
         status: {
             type: DataTypes.STRING,
