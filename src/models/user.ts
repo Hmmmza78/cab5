@@ -6,7 +6,6 @@ export type UserDocument = Document & {
   lastName: string;
   phone: string;
   email: string;
-  password: string;
   fcmToken: string;
   currLat: string;
   currLon: string;
@@ -31,10 +30,6 @@ const userSchema = sequelize.define("users",
       type: DataTypes.STRING,
       allowNull: true,
       unique: true,
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: true,
     },
     fcmToken: {
       type: DataTypes.STRING,
