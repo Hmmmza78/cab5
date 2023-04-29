@@ -4,7 +4,7 @@ import { validateInputs } from "../../../middlewares/validate";
 const router = express.Router();
 
 
-router.post("/add", validateInputs(["name", "logo", "priceMinute", "priceKm"]), create);
+router.post("/add", validateInputs(["name", "logo", "priceKm"]), create);
 
 router.get("/getAll", findAll);
 router.get("/getByQuery", findByQuery);
