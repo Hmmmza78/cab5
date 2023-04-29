@@ -124,7 +124,7 @@ export default async function socket(io: Server) {
             }
             console.log(final, "final, dataValues");
 
-            userNSP.emit("sendBidQuick", final);
+            userNSP.emit("allBids", final);
         })
 
         riderNSP.emit("newRideQuick", { data: final });
