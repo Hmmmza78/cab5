@@ -36,6 +36,7 @@ export default async function socket(io: Server) {
     });
     riderNSP.on("connection", async (socket: Socket) => {
         console.log("rider connected");
+        riderNSP.emit("newRideQuick", await R_quickService.findAll());
         socket.on("join", (data) => {
             console.log(data);
         });
