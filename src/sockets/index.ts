@@ -56,7 +56,7 @@ export default async function socket(io: Server) {
             console.log(one);
             const userData = await UserService.findById(one.dataValues.user);
             const categoryData = await RC_quickService.findById(one.dataValues.category);
-            final.push({ doc: one.dataValues, userData, categoryData });
+            final.push({ doc: one.dataValues, userData: userData.dataValues, categoryData: categoryData.dataValues });
         }
         console.log(final);
 
