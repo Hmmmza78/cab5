@@ -1,25 +1,55 @@
 import { sequelize } from '../config/db';
 import { DataTypes } from "sequelize"
 
-export type RC_quickDocument = Document & {
-    name: string;
-    logo: string;
-    priceKm: string;
+export type R_quickDocument = Document & {
+    rider: string;
+    user: string;
+    category: string;
+    pickupLat: string;
+    pickupLon: string;
+    pickupLocation: string;
+    dropLat: string;
+    dropLon: string;
+    dropLocation: string;
     status: string;
 }
 
 
-const RC_quickSchema = sequelize.define("RC_quick",
+const R_quickSchema = sequelize.define("R_quick",
     {
-        name: {
+        rider: {
             type: DataTypes.STRING,
             allowNull: true,
         },
-        logo: {
+        user: {
             type: DataTypes.STRING,
             allowNull: true,
         },
-        priceKm: {
+        category: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        pickupLat: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        pickupLon: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        pickupLocation: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        dropLat: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        dropLon: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        dropLocation: {
             type: DataTypes.STRING,
             allowNull: true,
         },
@@ -32,4 +62,4 @@ const RC_quickSchema = sequelize.define("RC_quick",
     { timestamps: true }
 )
 
-export default RC_quickSchema
+export default R_quickSchema
