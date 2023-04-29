@@ -56,6 +56,18 @@ const R_quickSchema = sequelize.define("R_quick",
             type: DataTypes.STRING,
             allowNull: true,
         },
+        bidPrice: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        instruction: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        range: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
         status: {
             type: DataTypes.STRING,
             allowNull: true,
