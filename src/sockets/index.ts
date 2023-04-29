@@ -116,7 +116,13 @@ export default async function socket(io: Server) {
             const bid = await BidQuickService.create(data);
             const rideData = (await R_quickService.findById(bid.dataValues.ride)).dataValues;
             const riderData = (await RiderService.findById(bid.dataValues.rider)).dataValues;
-            userNSP.emit("sendBidQuick", { bid, rideData, riderData });
+            const bids = await BidQuickService.findByQuery({ ride: data.ride });
+            const final = [];
+            for (const bid of bids) {
+                const riderData = (await UserService.findById(bid.dataValues.rider))?.dataValues;
+                final.push({ bid: bid.dataValues, riderData });
+            }
+            userNSP.emit("sendBidQuick", final);
         })
 
         riderNSP.emit("newRideQuick", { data: final });
