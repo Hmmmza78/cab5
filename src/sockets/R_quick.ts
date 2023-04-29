@@ -9,7 +9,3 @@ export default async function (io: Server) {
     });
 }
 
-// function to get sum of three numbers
-function sum(a: number, b: number, c: number) {
-    return a + b + c;
-}
