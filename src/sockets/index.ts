@@ -1,10 +1,13 @@
 import { Socket } from "socket.io";
+import { Op } from "sequelize"
 import { Server, } from "socket.io";
 import R_quickService from "../services/R_quick";
 import RC_quickService from "../services/RC_quick";
 import UserService from "../services/user";
+import RiderService from "../services/rider";
 
 import R_quick from "./R_quick"
+import { notify } from '../util/notification';
 
 export default async function socket(io: Server) {
 
@@ -33,7 +36,24 @@ export default async function socket(io: Server) {
 
         socket.on("newRideQuick", async (data, cb) => {
             try {
-                console.log(data);
+                // console.log(data);
+
+                const riders = await RiderService.findAll();
+                for (const rider of riders) {
+                    // riderNSP.emit("newRideQuick", rider);
+                    notify(rider.dataValues.fcmToken, "New Ride", `New Ride request of price ${data.bidPrice} has been made`)
+                }
+                const fifteenMinutesAgo = new Date(new Date().getTime() - 15 * 60 * 1000);
+                const oldRide = await R_quickService.findByQuery({
+                    createdAt: {
+                        [Op.gte]: fifteenMinutesAgo,
+                    },
+                    user: data.user,
+                });
+                if (oldRide != null) {
+                    await R_quickService.updateById({ status: "cancelled", }, oldRide[0].dataValues.id);
+                }
+
                 let result = await R_quickService.create(data);
                 console.log(result);
                 cb({ status: "success", data: result });
@@ -49,6 +69,11 @@ export default async function socket(io: Server) {
 
     });
     riderNSP.on("connection", async (socket: Socket) => {
+        const riders = await RiderService.findAll();
+        for (const rider of riders) {
+            // riderNSP.emit("newRideQuick", rider);
+            notify(rider.dataValues.fcmToken, "Test", `Test notifications`)
+        }
         console.log("rider connected");
         const rides = await R_quickService.findAll();
         const final = [];
