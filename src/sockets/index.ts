@@ -23,6 +23,7 @@ export default async function socket(io: Server) {
                 console.log(result);
                 cb({ status: "success", data: result });
                 riderNSP.emit("newRideQuic", result);
+                console.log("newRideQuick", "success");
             } catch (error) {
                 cb({ status: "error", message: error.message });
             }
