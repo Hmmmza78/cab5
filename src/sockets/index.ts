@@ -5,6 +5,7 @@ import R_quickService from "../services/R_quick";
 import RC_quickService from "../services/RC_quick";
 import UserService from "../services/user";
 import RiderService from "../services/rider";
+import BidQuickService from "../services/bidQuick"
 
 import R_quick from "./R_quick"
 import { notify } from '../util/notification';
@@ -87,6 +88,11 @@ export default async function socket(io: Server) {
             final.push({ doc: ride?.dataValues, userData: userData?.dataValues, categoryData: categoryData?.dataValues });
         }
         console.log(final);
+        socket.on("sendBidQuick", async (data, cb) => {
+            const bid = await BidQuickService.create(data);
+            
+            userNSP.emit("sendBidQuick", bid);
+        })
 
         riderNSP.emit("newRideQuick", { data: final });
         socket.on("join", (data) => {
