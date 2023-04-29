@@ -28,6 +28,8 @@ export default async function socket(io: Server) {
             console.log("rider disconnected");
         });
     });
+    console.log("woowowowowow");
+
 }
 
 
