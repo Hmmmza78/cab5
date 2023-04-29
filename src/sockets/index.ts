@@ -1,6 +1,7 @@
 import { Socket } from "socket.io";
 import { Server, } from "socket.io";
 import R_quickService from "../services/R_quick";
+import RC_quickService from "../services/RC_quick";
 import UserService from "../services/user";
 
 import R_quick from "./R_quick"
@@ -29,7 +30,6 @@ export default async function socket(io: Server) {
                 cb({ status: "error", message: error.message });
             }
         });
-
         socket.on("disconnect", () => {
             console.log("user disconnected");
         });
@@ -41,9 +41,10 @@ export default async function socket(io: Server) {
         const final = [];
         for (const one of rides) {
             const userData = await UserService.findById(one.toJSON().user);
-            final.push({ doc: one });
+            const categoryData = await RC_quickService.findById(one.toJSON().category);
+            final.push({ doc: one, userData });
         }
-        riderNSP.emit("newRideQuick", rides);
+        riderNSP.emit("newRideQuick", rides[0]);
         socket.on("join", (data) => {
             console.log(data);
         });
