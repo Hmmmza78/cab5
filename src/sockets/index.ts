@@ -22,7 +22,8 @@ export default async function socket(io: Server) {
         console.log("rider connected");
         socket.on("join", (data) => {
             console.log(data);
-        })
+        });
+        riderNSP.emit("join", "hello");
         socket.on("disconnect", () => {
             console.log("rider disconnected");
         });
