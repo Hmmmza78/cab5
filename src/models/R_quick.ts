@@ -11,6 +11,9 @@ export type R_quickDocument = Document & {
     dropLat: string;
     dropLon: string;
     dropLocation: string;
+    bidPrice: string;
+    instruction: string;
+    range: string;
     status: string;
 }
 

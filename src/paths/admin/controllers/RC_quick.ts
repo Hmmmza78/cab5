@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { RC_quickDocument } from '../../../models/R_quick';
+import { RC_quickDocument } from '../../../models/RC_quick';
 import Rc_QuickService from "../../../services/RC_quick"
 import { BadRequestError, NotFoundError, ValidationError } from '../../../helpers/apiError';
 // exporting common controllers

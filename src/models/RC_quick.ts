@@ -1,7 +1,7 @@
 import { sequelize } from '../config/db';
 import { DataTypes } from "sequelize"
 
-export type R_quickDocument = Document & {
+export type RC_quickDocument = Document & {
     name: string;
     logo: string;
     priceKm: string;
@@ -9,7 +9,7 @@ export type R_quickDocument = Document & {
 }
 
 
-const R_quickSchema = sequelize.define("R_quick",
+const RC_quickSchema = sequelize.define("RC_quick",
     {
         name: {
             type: DataTypes.STRING,
@@ -32,4 +32,4 @@ const R_quickSchema = sequelize.define("R_quick",
     { timestamps: true, }
 )
 
-export default R_quickSchema
+export default RC_quickSchema
