@@ -7,7 +7,7 @@ import { upload } from '../../../util/upload';
 
 router.post("/login", validateInputs(["phone", "fcmToken", "currLat", "currLon"]), login);
 
-router.post("/register", validateInputs(["firstName", "lastName", "phone", "email", "fcmToken", "currLat", "currLon", "dob", "city"]), create);
+router.post("/register", validateInputs(["firstName", "lastName", "phone", "email", "fcmToken", "currLat", "currLon"]), create);
 
 
 
