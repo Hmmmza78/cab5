@@ -20,6 +20,12 @@ export default async function socket(io: Server) {
     // });
 
     userNSP.on("connection", async (socket: Socket) => {
+
+        const bid = (await BidQuickService.findById(1)).dataValues;
+        const rideData = (await R_quickService.findById(bid.dataValues.ride)).dataValues;
+        const riderData = (await RiderService.findById(bid.dataValues.rider)).dataValues;
+        userNSP.emit("sendBidQuick", { bid, rideData, riderData });
+
         console.log("user connected");
         socket.on("cancelRideQuick", async (id, cb) => {
             try {
@@ -66,6 +72,20 @@ export default async function socket(io: Server) {
                 cb({ status: "error", message: error.message });
             }
         });
+
+        socket.on("acceptRideQuick", async (bid, cb) => {
+            try {
+                console.log(bid);
+                let result = await R_quickService.updateById(bid.id, { status: "accepted", });
+                console.log(result);
+                cb({ status: "success", data: result });
+                riderNSP.emit("acceptRideQuick", result);
+                console.log("acceptRideQuick", "success");
+            } catch (error) {
+                cb({ status: "error", message: error.message });
+            }
+        })
+
         socket.on("disconnect", () => {
             console.log("user disconnected");
         });
@@ -90,8 +110,9 @@ export default async function socket(io: Server) {
         console.log(final);
         socket.on("sendBidQuick", async (data, cb) => {
             const bid = await BidQuickService.create(data);
-
-            userNSP.emit("sendBidQuick", bid);
+            const rideData = (await R_quickService.findById(bid.dataValues.ride)).dataValues;
+            const riderData = (await RiderService.findById(bid.dataValues.rider)).dataValues;
+            userNSP.emit("sendBidQuick", { bid, rideData, riderData });
         })
 
         riderNSP.emit("newRideQuick", { data: final });
