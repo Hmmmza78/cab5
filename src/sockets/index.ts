@@ -42,11 +42,11 @@ export default async function socket(io: Server) {
         for (const one of rides) {
             console.log(one);
 
-            const userData = await UserService.findById(one.toJSON().user);
-            const categoryData = await RC_quickService.findById(one.toJSON().category);
-            final.push({ doc: one, userData });
+            const userData = await UserService.findById(one.dataValues.user);
+            const categoryData = await RC_quickService.findById(one.dataValues.category);
+            final.push({ doc: one.dataValues, userData, categoryData });
         }
-        riderNSP.emit("newRideQuick", rides[0]);
+        riderNSP.emit("newRideQuick", { data: final });
         socket.on("join", (data) => {
             console.log(data);
         });
