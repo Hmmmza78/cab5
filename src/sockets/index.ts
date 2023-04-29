@@ -22,8 +22,8 @@ export default async function socket(io: Server) {
     userNSP.on("connection", async (socket: Socket) => {
 
         const bid = (await BidQuickService.findById(1)).dataValues;
-        const rideData = (await R_quickService.findById(bid.dataValues.ride)).dataValues;
-        const riderData = (await RiderService.findById(bid.dataValues.rider)).dataValues;
+        const rideData = (await R_quickService.findById(bid.dataValues?.ride)).dataValues;
+        const riderData = (await RiderService.findById(bid.dataValues?.rider)).dataValues;
         userNSP.emit("sendBidQuick", { bid, rideData, riderData });
 
         console.log("user connected");
