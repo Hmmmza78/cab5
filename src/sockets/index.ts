@@ -40,6 +40,8 @@ export default async function socket(io: Server) {
         const rides = await R_quickService.findAll();
         const final = [];
         for (const one of rides) {
+            console.log(one);
+
             const userData = await UserService.findById(one.toJSON().user);
             const categoryData = await RC_quickService.findById(one.toJSON().category);
             final.push({ doc: one, userData });
