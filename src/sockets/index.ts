@@ -7,7 +7,7 @@ export default async function socket(io: Server) {
 
     let userNSP = io.of('/user');
     let riderNSP = io.of('/rider');
-    R_quick(io);
+    // R_quick(io);
     // let socketUser = {};
     // io.on("connection", async (socket: Socket) => {
     // });
