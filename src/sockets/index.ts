@@ -76,14 +76,15 @@ export default async function socket(io: Server) {
             // riderNSP.emit("newRideQuick", rider);
             notify(rider.dataValues.fcmToken, "Test", `Test notifications`)
         }
+        notify((await RiderService.findById(1)).dataValues.fcmToken, "Test", `Test notifications`)
         console.log("rider connected");
         const rides = await R_quickService.findAll();
         const final = [];
-        for (const one of rides) {
-            console.log(one);
-            const userData = await UserService.findById(one.dataValues.user);
-            const categoryData = await RC_quickService.findById(one.dataValues.category);
-            final.push({ doc: one?.dataValues, userData: userData?.dataValues, categoryData: categoryData?.dataValues });
+        for (const ride of rides) {
+            console.log(ride);
+            const userData = await UserService.findById(ride.dataValues.user);
+            const categoryData = await RC_quickService.findById(ride.dataValues.category);
+            final.push({ doc: ride?.dataValues, userData: userData?.dataValues, categoryData: categoryData?.dataValues });
         }
         console.log(final);
 
