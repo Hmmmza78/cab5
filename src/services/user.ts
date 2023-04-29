@@ -20,4 +20,12 @@ function findById(id) {
     return Model.findOne({ where: { id } });
 }
 
+function deleteById(id) {
+    return Model.destroy({ where: { id } });
+}
+
+function deleteByQuery(query) {
+    return Model.destroy({ where: query });
+}
+
 export default { findAll, findOne, create, findByQuery, findById };

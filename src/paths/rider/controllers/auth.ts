@@ -43,7 +43,9 @@ export const documents = async (req: Request, res: Response, next: NextFunction)
             return res.json({ status: "success", data: await RiderDocumentService.findOne({ rider }) })
         }
         const data = await RiderDocumentService.create(req["validData"]);
-    } catch (error) {
+        return res.json({ status: "success", data })
+    }
+    catch (error) {
         return next(new ValidationError("Invalid fields", error))
     }
 }

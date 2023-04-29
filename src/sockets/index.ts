@@ -23,7 +23,7 @@ export default async function socket(io: Server) {
         socket.on("cancelRideQuick", async (id, cb) => {
             try {
                 // console.log(id);
-                let result = await R_quickService.updateById({ status: "cancelled", }, id);
+                let result = await R_quickService.updateById(id, { status: "cancelled", });
                 console.log(result);
                 cb({ status: "success", data: result });
                 riderNSP.emit("cancelRideQuick", result);
@@ -50,8 +50,10 @@ export default async function socket(io: Server) {
                     },
                     user: data.user,
                 });
-                if (oldRide != null) {
-                    await R_quickService.updateById({ status: "cancelled", }, oldRide[0].dataValues.id);
+                if (oldRide.length > 0) {
+                    for (const ride of oldRide) {
+                        await R_quickService.updateById(ride.dataValues.id, { status: "cancelled", });
+                    }
                 }
 
                 let result = await R_quickService.create(data);

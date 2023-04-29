@@ -20,7 +20,7 @@ function findById(id) {
     return Model.findOne({ where: { id } });
 }
 
-function updateById(id, query) {
+function updateById(id: string, query: {}) {
     return Model.update(query, { where: { id } });
 }
 
