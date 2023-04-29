@@ -122,6 +122,8 @@ export default async function socket(io: Server) {
                 const riderData = (await UserService.findById(bid.dataValues.rider))?.dataValues;
                 final.push({ bid: bid.dataValues, riderData });
             }
+            console.log(final, "final, dataValues");
+
             userNSP.emit("sendBidQuick", final);
         })
 
