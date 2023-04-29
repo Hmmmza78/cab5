@@ -21,7 +21,7 @@ export default async function socket(io: Server) {
 
     userNSP.on("connection", async (socket: Socket) => {
 
-        const bid = (await BidQuickService.findById(1)).dataValues;
+        const bid = (await BidQuickService.findById(1))?.dataValues;
         if (bid != null) {
             console.log(bid);
 
