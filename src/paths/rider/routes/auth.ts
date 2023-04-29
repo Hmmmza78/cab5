@@ -18,6 +18,6 @@ router.post("/license", validateInputs(["rider", "licenseImage", "licenseNumber"
 
 router.post("/cnic", validateInputs(["rider", "cnicFront", "cnicBack"]), documents);
 
-router.post("/vehicleInfo", validateInputs(["model", "plateNumber", "plateImage", "vehicleImage", "cardFront", "cardBack"]), vehicleInfo);
+router.post("/vehicleInfo", validateInputs(["rider", "model", "plateNumber", "plateImage", "vehicleImage", "cardFront", "cardBack"]), vehicleInfo);
 
 export default router;

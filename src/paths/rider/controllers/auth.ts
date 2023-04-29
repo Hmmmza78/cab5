@@ -64,7 +64,6 @@ export const vehicleInfo = async (req: Request, res: Response, next: NextFunctio
 
 export const uploadFunc = async (req: Request, res: Response, next: NextFunction) => {
     try {
-
         const filePath = req.file.path;
         return res.json({ status: "success", data: filePath })
     } catch (error) {
