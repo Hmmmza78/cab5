@@ -23,6 +23,8 @@ export default async function socket(io: Server) {
 
         const bid = (await BidQuickService.findById(1)).dataValues;
         if (bid != null) {
+            console.log(bid);
+
             const rideData = (await R_quickService.findById(bid.dataValues?.ride)).dataValues;
             const riderData = (await RiderService.findById(bid.dataValues?.rider)).dataValues;
             userNSP.emit("sendBidQuick", { bid, rideData, riderData });
