@@ -49,8 +49,9 @@ export default async function socket(io: Server) {
                 // console.log(id);
                 let result = await R_quickService.updateById(id, { status: "cancelled", });
                 console.log(result);
-                cb({ status: "success", data: result });
-                riderNSP.emit("cancelRideQuick", result);
+                const finalResult = await R_quickService.findById(id);
+                cb({ status: "success", data: finalResult });
+                riderNSP.emit("cancelRideQuick", finalResult);
                 // console.log("cancelRideQuick", "success");
             } catch (error) {
                 cb({ status: "error", message: error.message });
