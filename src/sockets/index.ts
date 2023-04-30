@@ -93,10 +93,10 @@ export default async function socket(io: Server) {
         socket.on("acceptRideQuick", async (bid, cb) => {
             try {
                 // console.log(bid);
-                const bidData = (await BidQuickService.findById(bid)).dataValues;
-                let result = await R_quickService.updateById(bidData.ride, { status: "accepted", rider: bidData.rider });
+                const bidData = (await BidQuickService.findById(bid))?.dataValues;
+                let result = await R_quickService.updateById(bidData?.ride, { status: "accepted", rider: bidData?.rider });
                 // console.log(result);
-                const finalData = (await R_quickService.findById(bidData.ride)).dataValues;
+                const finalData = (await R_quickService.findById(bidData?.ride))?.dataValues;
                 cb({ status: "success", data: finalData });
                 riderNSP.emit("acceptRideQuick", finalData);
                 console.log("acceptRideQuick", "success");
