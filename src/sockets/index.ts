@@ -20,16 +20,11 @@ export default async function socket(io: Server) {
     // io.on("connection", async (socket: Socket) => {
     // });
 
+    function sendRideStatus({ status, message }) {
+        userNSP.emit("rideStatus", { status, message });
+    }
+
     userNSP.on("connection", async (socket: Socket) => {
-
-        // const bid = (await BidQuickService.findById(1))?.dataValues;
-        // if (bid != null) {
-        //     console.log(bid);
-
-        //     const rideData = (await R_quickService.findById(bid.ride))?.dataValues;
-        //     const riderData = (await RiderService.findById(bid.rider))?.dataValues;
-        //     userNSP.emit("sendBidQuick", { bid, rideData, riderData });
-        // }
 
         const bids = await BidQuickService.findAll();
         const final = [];
