@@ -21,14 +21,24 @@ export default async function socket(io: Server) {
 
     userNSP.on("connection", async (socket: Socket) => {
 
-        const bid = (await BidQuickService.findById(1))?.dataValues;
-        if (bid != null) {
-            console.log(bid);
+        // const bid = (await BidQuickService.findById(1))?.dataValues;
+        // if (bid != null) {
+        //     console.log(bid);
 
-            const rideData = (await R_quickService.findById(bid.ride))?.dataValues;
-            const riderData = (await RiderService.findById(bid.rider))?.dataValues;
-            userNSP.emit("sendBidQuick", { bid, rideData, riderData });
+        //     const rideData = (await R_quickService.findById(bid.ride))?.dataValues;
+        //     const riderData = (await RiderService.findById(bid.rider))?.dataValues;
+        //     userNSP.emit("sendBidQuick", { bid, rideData, riderData });
+        // }
+
+        const bids = await BidQuickService.findAll();
+        const final = [];
+        for (const bid of bids) {
+            const riderData = (await UserService.findById(bid.dataValues.rider))?.dataValues;
+            final.push({ bid: bid.dataValues, riderData });
         }
+        console.log(final, "final, dataValues");
+
+        userNSP.emit("allBids", final);
 
         console.log("user connected");
         socket.on("cancelRideQuick", async (id, cb) => {
