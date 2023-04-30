@@ -9,6 +9,7 @@ import BidQuickService from "../services/bidQuick"
 
 import R_quick from "./R_quick"
 import { notify } from '../util/notification';
+import { findById } from '../paths/common/controllers/city';
 
 export default async function socket(io: Server) {
 
@@ -91,8 +92,9 @@ export default async function socket(io: Server) {
 
         socket.on("acceptRideQuick", async (bid, cb) => {
             try {
-                console.log(bid);
-                let result = await R_quickService.updateById(bid.id, { status: "accepted", });
+                // console.log(bid);
+                const bidData = (await BidQuickService.findById(bid)).dataValues;
+                let result = await R_quickService.updateById(bidData.ride, { status: "accepted", rider:  bidData.rider });
                 console.log(result);
                 cb({ status: "success", data: result });
                 riderNSP.emit("acceptRideQuick", result);
