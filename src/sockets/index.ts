@@ -44,7 +44,7 @@ export default async function socket(io: Server) {
         userNSP.emit("allBids", final);
 
         console.log("user connected");
-        socket.on("cancelRideQuick", async (id, cb) => {
+        socket.on("cancelRideQuick", async ({ id, reason }, cb) => {
             try {
                 // console.log(id);
                 let result = await R_quickService.updateById(id, { status: "cancelled", });
