@@ -34,7 +34,9 @@ export default async function socket(io: Server) {
         const final = [];
         for (const bid of bids) {
             const riderData = (await UserService.findById(bid.dataValues.rider))?.dataValues;
-            final.push({ bid: bid.dataValues, riderData });
+            const rideData = (await R_quickService.findById(bid.dataValues.ride))?.dataValues;
+            const categoryData = (await RC_quickService.findById(rideData.category))?.dataValues;
+            final.push({ bid: bid.dataValues, riderData, categoryData });
         }
         console.log(final, "final, dataValues");
 
