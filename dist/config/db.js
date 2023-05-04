@@ -36,7 +36,7 @@ exports.sequelize.authenticate().then(() => {
 const db = {};
 db.Sequelize = sequelize_1.Sequelize;
 db.sequelize = exports.sequelize;
-db.sequelize.sync({ force: true }).then(() => {
+db.sequelize.sync({ force: false }).then(() => {
     console.log('Yes Re-Sync Complete');
 });
 exports.default = db;
