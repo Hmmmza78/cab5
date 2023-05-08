@@ -5,7 +5,7 @@ const dbConfig = {
     HOST: 'localhost',
     PORT: '8000',
     USER: 'root',
-    PASSWORD: '',
+    PASSWORD: 'helloWorld',
     DB: 'cab5',
     dialect: 'mysql' as Dialect,
 
