@@ -124,6 +124,7 @@ export default async function socket(io: Server) {
         }
         console.log(final);
         socket.on("sendBidQuick", async (data, cb) => {
+            const old = await BidQuickService.findByQuery({ ride: data.ride, rider: data.rider });
             const bid = await BidQuickService.create(data);
             const rideData = (await R_quickService.findById(bid.dataValues.ride)).dataValues;
             const riderData = (await RiderService.findById(bid.dataValues.rider)).dataValues;
@@ -138,7 +139,16 @@ export default async function socket(io: Server) {
             userNSP.emit("allBids", final);
         })
 
-        // socket.on("")
+        socket.on("expireBidQuick", async (data, cb) => {
+            const { bidId, rideId } = data;
+            const bid = await BidQuickService.findById(bidId);
+            if (bidId == null) {
+                return cb({ status: "error", message: "bidId is invalid" });
+            }
+            await BidQuickService.updateById(bidId, { status: "expired" });
+            userNSP.emit("expireBidQuick", { bidId, rideId });
+
+        });
         riderNSP.emit("newRideQuick", { data: final });
         socket.on("join", (data) => {
             console.log(data);
