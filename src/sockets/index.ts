@@ -147,6 +147,7 @@ export default async function socket(io: Server) {
             }
             await BidQuickService.updateById(bidId, { status: "expired" });
             userNSP.emit("expireBidQuick", { bidId, rideId });
+            return cb({ status: "success", message: "Bid expired" })
 
         });
         riderNSP.emit("newRideQuick", { data: final });
