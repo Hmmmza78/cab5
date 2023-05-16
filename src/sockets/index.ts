@@ -26,17 +26,17 @@ export default async function socket(io: Server) {
 
     userNSP.on("connection", async (socket: Socket) => {
 
-        const bids = await BidQuickService.findAll();
-        const final = [];
-        for (const bid of bids) {
-            const riderData = (await UserService.findById(bid.dataValues.rider))?.dataValues;
-            const rideData = (await R_quickService.findById(bid.dataValues.ride))?.dataValues;
-            const categoryData = (await RC_quickService.findById(rideData.category))?.dataValues;
-            final.push({ bid: bid.dataValues, riderData, categoryData });
-        }
-        // console.log(final, "final, dataValues");
+        // const bids = await BidQuickService.findAll();
+        // const final = [];
+        // for (const bid of bids) {
+        //     const riderData = (await UserService.findById(bid.dataValues.rider))?.dataValues;
+        //     const rideData = (await R_quickService.findById(bid.dataValues.ride))?.dataValues;
+        //     const categoryData = (await RC_quickService.findById(rideData.category))?.dataValues;
+        //     final.push({ bid: bid.dataValues, riderData, categoryData });
+        // }
+        // // console.log(final, "final, dataValues");
 
-        userNSP.emit("allBids", final);
+        // userNSP.emit("allBids", final);
 
         console.log("user connected");
         socket.on("cancelRideQuick", async ({ id, reason }, cb) => {
@@ -134,6 +134,8 @@ export default async function socket(io: Server) {
 
                 userNSP.emit("allBids", final);
             } catch (error) {
+                console.log(error.message);
+
                 return cb({ status: "error", error });
             }
         })
