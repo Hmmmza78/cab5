@@ -34,7 +34,7 @@ export default async function socket(io: Server) {
             const categoryData = (await RC_quickService.findById(rideData.category))?.dataValues;
             final.push({ bid: bid.dataValues, riderData, categoryData });
         }
-        console.log(final, "final, dataValues");
+        // console.log(final, "final, dataValues");
 
         userNSP.emit("allBids", final);
 
@@ -43,7 +43,7 @@ export default async function socket(io: Server) {
             try {
                 // console.log(id);
                 let result = await R_quickService.updateById(id, { status: "cancelled", });
-                console.log(result);
+                // console.log(result);
                 const finalResult = await R_quickService.findById(id);
                 cb({ status: "success", data: finalResult });
                 riderNSP.emit("cancelRideQuick", finalResult);
@@ -77,7 +77,7 @@ export default async function socket(io: Server) {
                 }
 
                 let result = await R_quickService.create(data);
-                console.log(result);
+                // console.log(result);
                 cb({ status: "success", data: result });
                 riderNSP.emit("newRideQuic", result);
                 console.log("newRideQuick", "success");
@@ -94,7 +94,7 @@ export default async function socket(io: Server) {
                 // console.log(result);
                 const finalData = (await R_quickService.findById(bidData?.ride))?.dataValues;
                 cb({ status: "success", data: finalData });
-                riderNSP.emit("acceptRideQuick", finalData);
+                // riderNSP.emit("acceptRideQuick", finalData);
                 console.log("acceptRideQuick", "success");
             } catch (error) {
                 cb({ status: "error", message: error.message });
@@ -117,12 +117,12 @@ export default async function socket(io: Server) {
         const rides = await R_quickService.findAll();
         const final = [];
         for (const ride of rides) {
-            console.log(ride);
+            // console.log(ride);
             const userData = await UserService.findById(ride.dataValues.user);
             const categoryData = await RC_quickService.findById(ride.dataValues.category);
             final.push({ doc: ride?.dataValues, userData: userData?.dataValues, categoryData: categoryData?.dataValues });
         }
-        console.log(final);
+        // console.log(final);
         socket.on("sendBidQuick", async (data, cb) => {
             const old = await BidQuickService.findByQuery({ ride: data.ride, rider: data.rider });
             const bid = await BidQuickService.create(data);
@@ -134,7 +134,7 @@ export default async function socket(io: Server) {
                 const riderData = (await UserService.findById(bid.dataValues.rider))?.dataValues;
                 final.push({ bid: bid.dataValues, riderData });
             }
-            console.log(final, "final, dataValues");
+            // console.log(final, "final, dataValues");
 
             userNSP.emit("allBids", final);
         })
@@ -152,7 +152,7 @@ export default async function socket(io: Server) {
         });
         riderNSP.emit("newRideQuick", { data: final });
         socket.on("join", (data) => {
-            console.log(data);
+            // console.log(data);
         });
         riderNSP.emit("join", "hello");
         socket.on("disconnect", () => {
