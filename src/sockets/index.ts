@@ -138,8 +138,7 @@ export default async function socket(io: Server) {
             userNSP.emit("allBids", final);
         })
 
-socket.on("")
-asd
+        // socket.on("")
         riderNSP.emit("newRideQuick", { data: final });
         socket.on("join", (data) => {
             console.log(data);
