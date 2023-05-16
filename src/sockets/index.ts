@@ -79,7 +79,7 @@ export default async function socket(io: Server) {
                 let result = await R_quickService.create(data);
                 // console.log(result);
                 cb({ status: "success", data: result });
-                riderNSP.emit("newRideQuic", result);
+                riderNSP.emit("newRideQuick", result);
                 console.log("newRideQuick", "success");
             } catch (error) {
                 cb({ status: "error", message: error.message });
