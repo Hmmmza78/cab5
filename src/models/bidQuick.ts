@@ -5,6 +5,7 @@ export type BidQuickDocument = Document & {
     amount: string;
     rider: string;
     ride: string;
+    user: string;
     status: string;
 }
 
@@ -20,6 +21,10 @@ const BidQuickSchema = sequelize.define("bidQuick",
             allowNull: true,
         },
         ride: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        user: {
             type: DataTypes.STRING,
             allowNull: true,
         },

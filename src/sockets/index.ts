@@ -112,7 +112,7 @@ export default async function socket(io: Server) {
             // riderNSP.emit("newRideQuick", rider);
             notify(rider.dataValues.fcmToken, "Test", `Test notifications`)
         }
-        notify((await RiderService.findById(1))?.dataValues.fcmToken, "Test", `Test notifications`)
+        // notify((await RiderService.findById(1))?.dataValues.fcmToken, "Test", `Test notifications`)
         console.log("rider connected");
         const rides = await R_quickService.findAll();
         const final = [];
@@ -138,6 +138,8 @@ export default async function socket(io: Server) {
             userNSP.emit("allBids", final);
         })
 
+socket.on("")
+asd
         riderNSP.emit("newRideQuick", { data: final });
         socket.on("join", (data) => {
             console.log(data);
