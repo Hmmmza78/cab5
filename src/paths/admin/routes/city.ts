@@ -4,7 +4,7 @@ import { create, findAll, findById, findByQuery } from "../controllers/city";
 const router = express.Router();
 
 
-router.post("/add", validateInputs(["name"]), create);
+router.post("/add", validateInputs(["name", "status"]), create);
 
 router.get("/getAll", findAll);
 router.get("/getByQuery", findByQuery);
