@@ -20,9 +20,9 @@ export default async function socket(io: Server) {
     // io.on("connection", async (socket: Socket) => {
     // });
 
-    function sendRideStatus({ status, message }) {
-        userNSP.emit("rideStatus", { status, message });
-    }
+    // function sendRideStatus({ status, message }) {
+    //     userNSP.emit("rideStatus", { status, message });
+    // }
 
     userNSP.on("connection", async (socket: Socket) => {
 
@@ -107,12 +107,6 @@ export default async function socket(io: Server) {
 
     });
     riderNSP.on("connection", async (socket: Socket) => {
-        const riders = await RiderService.findAll();
-        for (const rider of riders) {
-            // riderNSP.emit("newRideQuick", rider);
-            notify(rider.dataValues.fcmToken, "Test", `Test notifications`)
-        }
-        // notify((await RiderService.findById(1))?.dataValues.fcmToken, "Test", `Test notifications`)
         console.log("rider connected");
         const rides = await R_quickService.findAll();
         const final = [];
@@ -124,31 +118,40 @@ export default async function socket(io: Server) {
         }
         // console.log(final);
         socket.on("sendBidQuick", async (data, cb) => {
-            const old = await BidQuickService.findByQuery({ ride: data.ride, rider: data.rider });
-            const bid = await BidQuickService.create(data);
-            const rideData = (await R_quickService.findById(bid.dataValues.ride)).dataValues;
-            const riderData = (await RiderService.findById(bid.dataValues.rider)).dataValues;
-            const bids = await BidQuickService.findByQuery({ ride: data.ride });
-            const final = [];
-            for (const bid of bids) {
-                const riderData = (await UserService.findById(bid.dataValues.rider))?.dataValues;
-                final.push({ bid: bid.dataValues, riderData });
-            }
-            // console.log(final, "final, dataValues");
+            try {
 
-            userNSP.emit("allBids", final);
+                const old = await BidQuickService.findByQuery({ ride: data.ride, rider: data.rider });
+                const bid = await BidQuickService.create(data);
+                const rideData = (await R_quickService.findById(bid.dataValues.ride)).dataValues;
+                const riderData = (await RiderService.findById(bid.dataValues.rider)).dataValues;
+                const bids = await BidQuickService.findByQuery({ ride: data.ride });
+                const final = [];
+                for (const bid of bids) {
+                    const riderData = (await UserService.findById(bid.dataValues.rider))?.dataValues;
+                    final.push({ bid: bid.dataValues, riderData });
+                }
+                // console.log(final, "final, dataValues");
+
+                userNSP.emit("allBids", final);
+            } catch (error) {
+                return cb({ status: "error", error });
+            }
         })
 
         socket.on("expireBidQuick", async (data, cb) => {
-            const { bidId, rideId } = data;
-            const bid = await BidQuickService.findById(bidId);
-            if (bidId == null) {
-                return cb({ status: "error", message: "bidId is invalid" });
-            }
-            await BidQuickService.updateById(bidId, { status: "expired" });
-            userNSP.emit("expireBidQuick", { bidId, rideId });
-            return cb({ status: "success", message: "Bid expired" })
+            try {
+                const { bidId, rideId } = data;
+                const bid = await BidQuickService.findById(bidId);
+                if (bidId == null) {
+                    return cb({ status: "error", message: "bidId is invalid" });
+                }
+                await BidQuickService.updateById(bidId, { status: "expired" });
+                userNSP.emit("expireBidQuick", { bidId, rideId });
+                return cb({ status: "success", message: "Bid expired" })
 
+            } catch (error) {
+                return cb({ status: "error", error });
+            }
         });
         riderNSP.emit("newRideQuick", { data: final });
         socket.on("join", (data) => {
