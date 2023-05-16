@@ -3,7 +3,7 @@ import { VehicleBrandDocument } from '../../../models/vehicleBrand';
 import VehicleBrandService from "../../../services/vehicleBrand"
 import { BadRequestError, NotFoundError, ValidationError } from '../../../helpers/apiError';
 // exporting common controllers
-import { findAll, findById, findByQuery } from "../../common/controllers/city";
+import { findAll, findById, findByQuery } from "../../common/controllers/vehicleBrand";
 export { findAll, findById, findByQuery };
 
 export const create = async (req: Request, res: Response, next: NextFunction) => {
